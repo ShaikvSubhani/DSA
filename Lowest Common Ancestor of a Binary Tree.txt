@@ -1,0 +1,55 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ //this is same as path to give node,
+ //will look for p and q and get the path in 2 different arraylist
+ //after that will check the common node from the end and return it.
+ //only difference here is we are comparing the nodes instead of their values.
+class Solution {
+    boolean commonAncestor(TreeNode root, TreeNode p, ArrayList<TreeNode> path)
+    {
+        if(root==null)
+         return false;
+
+        if(root==p)
+        {
+        path.add(root);
+        return true;
+        }
+
+        boolean res= commonAncestor(root.left,p,path)|| commonAncestor(root.right,p,path);  
+
+        if(res==true)
+        path.add(root);
+
+        return res;
+        
+    }
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        ArrayList<TreeNode> path1=new ArrayList<>();
+        commonAncestor(root,p,path1);
+        ArrayList<TreeNode> path2=new ArrayList<>();
+        commonAncestor(root,q,path2);
+       //as we will get the list in reverse order thats why will start from last
+       int i=path1.size()-1;
+       int j=path2.size()-1;
+       TreeNode ans=null;
+       while(i>=0  && j>=0)
+       {
+           if(path1.get(i)==path2.get(j))
+           ans= path1.get(i);
+           else
+           break;
+           i--;
+           j--;
+       }
+
+        return ans;
+    }
+}
