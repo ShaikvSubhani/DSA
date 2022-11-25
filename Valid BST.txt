@@ -1,0 +1,18 @@
+class Solution {
+    boolean isBST(TreeNode root,long low,long high)
+    {
+        
+        if(root==null)
+        return true;
+
+        //the property of BST roots into the left have smaller value compare to the right;
+        if(root.val<=low  || root.val>=high)
+        return false;
+
+        return isBST(root.left,low,root.val) && isBST(root.right,root.val,high);
+    }
+    public boolean isValidBST(TreeNode root) {
+        //will call function- the range will start from(-infinity to infinity)
+        return isBST(root, Long.MIN_VALUE,Long.MAX_VALUE);
+    }
+}
