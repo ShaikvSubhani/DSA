@@ -1,0 +1,24 @@
+class Solution{
+    
+    int leftleafsum(Node root,boolean flag)
+    {
+        if(root==null)
+        return 0;
+        
+        int l=leftleafsum(root.left,true);
+        int r=leftleafsum(root.right,false);
+        
+        if(root.left==null  &&  root.right==null  &&  flag)
+        return l+r+root.data;
+        
+        return l+r;
+    
+    }
+
+    public int leftLeavesSum(Node root) 
+    { 
+        // Write your code here
+       return leftleafsum(root,false);
+    } 
+
+}
