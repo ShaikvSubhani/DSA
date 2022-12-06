@@ -1,0 +1,21 @@
+class Solution {
+     int index=0;
+    public TreeNode bstFromPreorder(int[] preorder,int lr,int rr) {
+        
+            if(index>=preorder.length ||  preorder[index]<lr ||  preorder[index]>rr)
+            return null;
+
+            TreeNode root=new TreeNode(preorder[index++]);
+            root.left=bstFromPreorder(preorder, lr,root.val);
+            root.right=bstFromPreorder(preorder, root.val,rr);
+
+            return root;
+
+        }
+    public TreeNode bstFromPreorder(int[] preorder) {
+        int lr=0;
+        int rr=10001;
+
+        return bstFromPreorder(preorder,lr,rr);
+    }
+}
