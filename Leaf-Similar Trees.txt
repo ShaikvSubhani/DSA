@@ -1,0 +1,21 @@
+
+class Solution {
+    public void getleaf(TreeNode root, ArrayList<Integer> leafs)
+    {
+        if(root==null)
+        return;
+        if(root.left==null  &&  root.right==null)
+        leafs.add(root.val);
+
+        getleaf(root.left,leafs);
+        getleaf(root.right,leafs);
+    }
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        ArrayList<Integer> tree1=new ArrayList<>();
+        ArrayList<Integer> tree2=new ArrayList<>();
+        getleaf(root1,tree1);
+        getleaf(root2,tree2);
+
+        return tree1.equals(tree2);
+    }
+}
