@@ -1,0 +1,62 @@
+The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
+
+For example, for arr = [2,3,4], the median is 3.
+For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
+Implement the MedianFinder class:
+
+MedianFinder() initializes the MedianFinder object.
+void addNum(int num) adds the integer num from the data stream to the data structure.
+double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
+
+https://leetcode.com/problems/find-median-from-data-stream/description/
+
+class MedianFinder { 
+    //leftpq will store the max element at peek();due to reverse function
+    private PriorityQueue<Integer> leftpq=new PriorityQueue<>(Collections.reverseOrder());
+    //rightpq will store the min element at peek()
+    private PriorityQueue<Integer> rightpq=new PriorityQueue<>();
+
+    public MedianFinder() {
+        
+    }
+    //adding number to data structures
+    public void addNum(int num) {
+        if(leftpq.isEmpty()  || num<=leftpq.peek())
+        leftpq.offer(num);
+        else
+        rightpq.offer(num);
+
+
+        //rebalancing the heaps;
+        if(leftpq.size()-rightpq.size()>1)
+        {
+            rightpq.offer(leftpq.poll());
+        }
+        else if(rightpq.size()-leftpq.size()>1)
+        {
+            leftpq.offer(rightpq.poll());
+        }
+    }
+    
+    public double findMedian() {
+        if(leftpq.isEmpty())
+        return (double)rightpq.peek();
+        else if(rightpq.isEmpty())
+        return (double)leftpq.peek();
+        else if(leftpq.size()>rightpq.size())
+        return (double)leftpq.peek();
+        else if(rightpq.size()>leftpq.size())
+        return (double)rightpq.peek();
+        else{
+            return (double)(leftpq.peek() + rightpq.peek())/2;
+        }
+        
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
