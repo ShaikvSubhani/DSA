@@ -1,0 +1,36 @@
+import java.util.*;
+public class Main
+{
+    public static int fibm(int n,int[] qb)
+    {
+        //base case
+        if(n==0  || n==1)
+        return n;
+        
+        //the fib value which we are trying to find is there already there in qb[n];
+        //then will retun that
+        if(qb[n]!=0)
+        {
+            return qb[n];
+        }
+        
+        
+        // calling function recursively
+        int fib1=fibm(n-1,qb);
+        int fib2=fibm(n-2,qb);
+        int f=fib1 + fib2;
+        
+        
+        //you will store the answer before returning so that you
+        // dont need to calculate again;
+        qb[n]=f;
+        
+        return f;
+    }
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		System.out.print(fibm(n,new int[n+1]));
+		
+	}
+}

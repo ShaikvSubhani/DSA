@@ -1,0 +1,50 @@
+https://leetcode.com/problems/climbing-stairs/
+
+//climbing stairs with recursion
+
+class Solution {
+    public int countpaths(int n)
+    {
+        if(n==0)
+        return 1;
+        if(n<0)
+        return 0;
+
+        int cp1=countpaths(n-1);
+        int cp2=countpaths(n-2);
+
+        return cp1+cp2;
+    }
+    public int climbStairs(int n) {
+
+        int cp=countpaths(n);
+        return cp;       
+    }
+}
+
+
+// after adding memoization using dp
+class Solution {
+    public int countpaths(int n,int[] dp)
+    {
+        if(n==0)
+        return 1;
+        if(n<0)
+        return 0;
+
+        if(dp[n]!=0)
+        return dp[n];
+
+        int cp1=countpaths(n-1,dp);
+        int cp2=countpaths(n-2,dp);
+
+        dp[n]=cp1+cp2;
+        return cp1+cp2;
+    }
+    public int climbStairs(int n) {
+
+        int cp=countpaths(n,new int[n+1]);
+        return cp;
+               
+    }
+}
